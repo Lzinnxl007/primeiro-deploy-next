@@ -4,11 +4,12 @@ import { IoIosAdd, IoIosCheckmarkCircleOutline} from 'react-icons/io'
 import { BsFillPencilFill, BsFillTrashFill } from 'react-icons/Bs'
 export default function App() {
     const [value, setValue] = useState('')
-    const [item, setItem] = useState('')
-    
-    const check = () => {
+    const [item, setItem] = useState([])
+    const [token, setToken] = useState(0)
+    const check = (e) => {
         const text = document.querySelector('#text')
-        text.style.textDecoration = 'line-through'
+        text.style.textDecoration !== 'line-through' ? text.style.textDecoration = 'line-through' : text.style.textDecoration = 'none'
+        
     }
 
     const remove = () => {
@@ -16,17 +17,27 @@ export default function App() {
         const notes = document.querySelector('#notes')
         notes.removeChild(note)
     }
+
+    const edit = () => {
+        const input = document.querySelector('input')
+        const text = document.querySelector('#text')
+        input.value = text.textContent
+        setToken(1)
+    }
+
     const createItem = () => {
-      
-        setItem(<div className={style.item} id="note">
+        const text = document.querySelector('#text')
+        const input = document.querySelector('input')
+        if(value.length > 0 && item.length < 5 && token !== 1) {
+        item.push(<div className={style.item} id="note">
           <div className={style.text} id="text">{value}</div>
           <div className={style.buttons}>
-          <button className={style.button}>
+          <button className={style.button} onClick={() => edit()}>
             <BsFillPencilFill style={{
               color: '#fff'
             }}/>
           </button>
-          <button className={style.button} onClick={() => check()}>
+          <button className={style.button} onClick={(e) => check(e)}>
             <IoIosCheckmarkCircleOutline style={{
               color: '#fff',
               fontSize: '1.3rem',
@@ -40,7 +51,12 @@ export default function App() {
           </div>
         </div>)
         
-        
+      }
+      else {
+          setValue(input.value)
+          text.textContent = value
+      }
+      setValue('')
     }
     return (
     <>
