@@ -1,7 +1,7 @@
 import style from '../styles/Notes.module.css'
 import { useState } from 'react'
 import { IoIosAdd, IoIosCheckmarkCircleOutline} from 'react-icons/io'
-import { BsFillPencilFill, BsFillTrashFill } from 'react-icons/Bs'
+import { BsFillPencilFill, BsFillTrashFill } from 'react-icons/bs'
 export default function App() {
     const [value, setValue] = useState('')
     const [item, setItem] = useState([])
